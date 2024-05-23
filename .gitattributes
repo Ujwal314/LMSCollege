@@ -1,0 +1,5 @@
+# Ensure text files have normalized (LF) line endings
+* text=auto
+# Explicitly set line endings for CSS and JS files to LF
+*.css text eol=lf
+*.js text eol=lf

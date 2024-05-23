@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #212529;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #343a40;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .form-control {
+            background-color: #495057;
+            color: #fff;
+            border: 1px solid #6c757d;
+            margin-bottom: 1rem;
+        }
+        .form-control::placeholder {
+            color: #adb5bd;
+        }
+        .btn {
+            background-color: #495057;
+            color: #fff;
+            border: none;
+            margin-top: 1rem;
+        }
+        .btn:hover {
+            background-color: #6c757d;
+        }
+        .alert-success {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .close {
+            color: #fff;
+        }
+        label {
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form action="register" method="post">
+            {% csrf_token %}
+
+            {% if alert_message %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ alert_message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
+
+            <input type="text" class="form-control" name="first_name" placeholder="First Name">
+            <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+            <input type="text" class="form-control" name="username" placeholder="Username">
+            <input type="email" class="form-control" name="email" placeholder="Email">
+            <div>
+                <label class="mr-3">Staff Type:</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="staff_type" id="T" value="1" onchange="fun(this)">
+                    <label class="form-check-label" for="T">Teaching</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="staff_type" id="NT" value="0" onchange="fun(this)">
+                    <label class="form-check-label" for="NT">Non-Teaching</label>
+                </div>
+            </div>
+            <input type="hidden" name="ifhod" id="h" value="0">
+            <div id="d"></div>
+            <select class="form-control" name="dept">
+                <option value="0">--Select--</option>
+                <option value="ISE">ISE</option>
+                <option value="CSE">CSE</option>
+                <option value="ECE">ECE</option>
+            </select>
+            <input type="password" class="form-control" name="password1" placeholder="Password">
+            <input type="password" class="form-control" name="password2" placeholder="Re-Enter Password">
+            <button type="submit" class="btn btn-block">Submit</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".close").click(function () {
+                $("#myAlert").alert('close');
+            });
+        });
+    </script>
+    <script>
+        var div = document.getElementById("d");
+        var hid=document.getElementById("h");
+        function fun(id) {        
+            if (id.value === "1"){ 
+                div.innerHTML = '<div class="form-check"><input class="form-check-input" type="checkbox" id="chk" onchange="dun(this)"><label class="form-check-label" for="chk">HOD</label></div>';
+            } else {
+                div.innerHTML = '';
+                hid.value="0";
+            }
+        }
+        function dun(id){
+            if(id.checked){
+                hid.value="1";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staffs</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #212529;
+            color: #fff;
+        }
+        .table {
+            background-color: #343a40;
+        }
+        .table thead th {
+            color: #fff;
+            border-bottom: 2px solid #495057;
+        }
+        .table tbody td {
+            color: #dee2e6;
+            border-top: 1px solid #495057;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #495057;
+        }
+        .form-control, .form-select {
+            background-color: #343a40;
+            color: #fff;
+            border: 1px solid #495057;
+        }
+        .form-control-plaintext {
+            background-color: transparent;
+            color: #dee2e6;
+        }
+        .btn {
+            background-color: #495057;
+            color: #fff;
+            border: none;
+        }
+        .btn:hover {
+            background-color: #6c757d;
+        }
+        .alert-success {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .close {
+            color: #fff;
+        }
+        h3 {
+            border-bottom: 2px solid #495057;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="register"><button type="button" class="btn">Add New Staff</button></a>
+        <table class="table table-hover table-dark mt-3">
+            <h3>Teachers</h3>
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">EL</th>
+                    <th scope="col">CL</th>
+                    <th scope="col">RH</th>
+                    <th scope="col">SL</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tr in t %}
+                    <tr>
+                        <th>
+                            {{tr.id}}
+                        </th>
+                        <td>
+                            {{tr.first_name}} {{tr.last_name}}
+                        </td>
+                        <td>
+                            {{tr.EL}}
+                        </td>
+                        <td>
+                            {{tr.CL}}
+                        </td>
+                        <td>
+                            {{tr.RH}}
+                        </td>
+                        <td>
+                            {{tr.SL}}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <table class="table table-hover table-dark mt-3">
+            <h3>Non Teachers</h3>
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">EL</th>
+                    <th scope="col">CL</th>
+                    <th scope="col">RH</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tr in nt %}
+                    <tr>
+                        <th>
+                            {{tr.id}}
+                        </th>
+                        <td>
+                            {{tr.first_name}} {{tr.last_name}}
+                        </td>
+                        <td>
+                            {{tr.EL}}
+                        </td>
+                        <td>
+                            {{tr.CL}}
+                        </td>
+                        <td>
+                            {{tr.RH}}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
