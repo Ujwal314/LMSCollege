@@ -155,8 +155,8 @@ def details(req):
                 delete=req.POST['delete']
                 l=LeaveReq.objects.get(id=delete)
                 l.delete()
-            else:
-                for i in range(len(id)):
+            elif 'submit' in req.POST:
+                for i in range(len(leave_type)):
                     daysleft= getattr(instance,leave_type[i])
                     ed = datetime.strptime(enddate[i], '%Y-%m-%d')
                     sd = datetime.strptime(startdate[i], '%Y-%m-%d')
