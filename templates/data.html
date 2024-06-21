@@ -12,7 +12,7 @@
 </head>
 <body>
     <figure>
-        <figcaption>El</figcaption>
+        <figcaption>EL</figcaption>
         <div>
             <canvas id="elchart"></canvas>
             <div id="el" style="display: none;">{{ typ.EL }}</div>
@@ -45,7 +45,7 @@
         const el = parseInt(document.getElementById("el").textContent);
         const cl = parseInt(document.getElementById("cl").textContent);
         const rh = parseInt(document.getElementById("rh").textContent);
-        const s=document.getElementById("sl");
+        const s = document.getElementById("sl");
         const sl = s ? parseInt(s.textContent) : -1;
 
         const eldata = {
@@ -53,12 +53,12 @@
             datasets: [{
                 data: [el, (5-el)],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 0, 0, 1)',  
+                    'rgba(0, 0, 255, 1)',  
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 0, 0, 1)',  
+                    'rgba(0, 0, 255, 1)',  
                 ],
                 borderWidth: 1
             }]
@@ -79,12 +79,12 @@
             datasets: [{
                 data: [cl, (15-cl)],
                 backgroundColor: [
-                    'rgba(75, 192, 192, 0.5)',
-                    'rgba(255, 205, 86, 0.5)',
+                    'rgba(0, 128, 128, 1)',  
+                    'rgba(255, 255, 0, 1)',  
                 ],
                 borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 205, 86, 1)',
+                    'rgba(0, 128, 128, 1)',  
+                    'rgba(255, 255, 0, 1)',  
                 ],
                 borderWidth: 1
             }]
@@ -101,12 +101,12 @@
             datasets: [{
                 data: [rh, (2-rh)],
                 backgroundColor: [
-                    'rgba(153, 102, 255, 0.5)',
-                    'rgba(255, 159, 64, 0.5)', 
+                    'rgba(128, 0, 128, 1)', 
+                    'rgba(255, 165, 0, 1)', 
                 ],
                 borderColor: [
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)', 
+                    'rgba(128, 0, 128, 1)',  
+                    'rgba(255, 165, 0, 1)', 
                 ],
                 borderWidth: 1
             }]
@@ -118,18 +118,18 @@
             options: options
         });
 
-        if(sl>0){
+        if (sl > 0) {
             const sldata = {
                 labels: ['Unused', 'Used'],
                 datasets: [{
                     data: [sl, (15-sl)],
                     backgroundColor: [
-                        'rgba(0, 255, 255, 0.5)', 
-                        'rgba(255, 192, 203, 0.5)', 
+                        'rgba(0, 255, 255, 1)',
+                        'rgba(255, 192, 203, 1)',
                     ],
                     borderColor: [
-                        'rgba(0, 255, 255, 1)',
-                        'rgba(255, 192, 203, 1)', 
+                        'rgba(0, 255, 255, 1)', 
+                        'rgba(255, 192, 203, 1)',
                     ],
                     borderWidth: 1
                 }]

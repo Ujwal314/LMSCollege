@@ -85,6 +85,10 @@ def form(req):
             totalDays=0.5
         else:
             totalDays=1
+        if leave_type=='EL' and totalDays<4:
+            return render(req, 'form.html', {'alert_message': 'Apply 4 or more leaves for EL',"stf":instance})
+        if leave_type=='CL' and totalDays>4:
+            return render(req, 'form.html', {'alert_message': 'You can only apply at most 4 leaves in CL',"stf":instance})
         daysleft= getattr(instance,leave_type)
         if daysleft<totalDays:
             return render(req, 'form.html', {'alert_message': 'There arent sufficient number of leaves left in the chosen leave type.',"stf":instance})
@@ -99,25 +103,40 @@ def details(req):
     user=req.user
     if user.is_superuser:
         if req.method== "POST":
-            tid_id=req.POST.getlist('tid_id')
-            totaldays=req.POST.getlist('totaldays')
-            leave_type=req.POST.getlist('leave_type')
-            status = req.POST.getlist('status')
-            id = req.POST.getlist('id')
-            for i in range(len(status)):
-                if status[i] != "Pending":
-                    instance = LeaveReq.objects.get(id=id[i])
-                    instance.status = status[i]
+            if 'accept' in req.POST:
+                accept=req.POST['accept']
+                l = LeaveReq.objects.get(id=accept)
+                l.status = "Approve"
+                l.save()
+                instance=CustomUser.objects.get(id=l.tid_id)
+                if instance.staff_type:
+                    instance=Teacher.objects.get(tid_id=l.tid_id)
+                else:
+                    instance=NonTeacher.objects.get(tid_id=l.tid_id)
+                lt= getattr(instance,l.leave_type)
+                setattr(instance,l.leave_type,lt-float(l.totaldays))
+                instance.save()
+            elif 'reject' in req.POST:
+                reject=req.POST['reject']
+                instance = LeaveReq.objects.get(id=reject)
+                instance.status = "Reject"
+                instance.save()
+            elif 'accept_all' in req.POST:
+                lr=LeaveReq.objects.filter(status="Pending")
+                for l in lr:
+                    l.status= "Approve"
+                    l.save()
+                    instance=CustomUser.objects.get(id=l.tid_id)
+                    if instance.staff_type:
+                        instance=Teacher.objects.get(tid_id=l.tid_id)
+                    else:
+                        instance=NonTeacher.objects.get(tid_id=l.tid_id)
+                    lt= getattr(instance,l.leave_type)
+                    setattr(instance,l.leave_type,lt-float(l.totaldays))
                     instance.save()
-                    if status[i]=="Approve":
-                        instance=CustomUser.objects.get(id=tid_id[i])
-                        if instance.staff_type:
-                            instance=Teacher.objects.get(tid_id=tid_id[i])
-                        else:
-                            instance=NonTeacher.objects.get(tid_id=tid_id[i])
-                        lt= getattr(instance,leave_type[i])
-                        setattr(instance,leave_type[i],lt-float(totaldays[i]))
-                        instance.save()   
+            elif 'reject_all' in req.POST:
+                instance=LeaveReq.objects.filter(status="Pending")
+                instance.update(status="Reject")
         lr=LeaveReq.objects.filter(status="Pending")
         return render(req ,"details.html",{"lr":lr})
     else:
@@ -128,16 +147,16 @@ def details(req):
             leave_type=req.POST.getlist('leave_type')
             startdate=req.POST.getlist('startdate')
             enddate=req.POST.getlist('enddate')
-            kd=req.POST.getlist('kd')
             if user.staff_type:
                 instance=Teacher.objects.get(tid_id=user.id)
             else:
                 instance=NonTeacher.objects.get(tid_id=user.id)
-            for i in range(len(kd)):
-                if kd[i]=="d":
-                    l=LeaveReq.objects.get(id=id[i])
-                    l.delete()
-                else:
+            if 'delete' in req.POST:
+                delete=req.POST['delete']
+                l=LeaveReq.objects.get(id=delete)
+                l.delete()
+            else:
+                for i in range(len(id)):
                     daysleft= getattr(instance,leave_type[i])
                     ed = datetime.strptime(enddate[i], '%Y-%m-%d')
                     sd = datetime.strptime(startdate[i], '%Y-%m-%d')
@@ -196,3 +215,8 @@ def staff(req):
     t=Teacher.objects.all()
     nt=NonTeacher.objects.all()
     return render(req ,"staff.html",{"t":t,"nt":nt})
+
+def ex(req):
+    return render(req,"ex.html")
+
+#ngrok http --domain=growing-egret-harmless.ngrok-free.app 8000

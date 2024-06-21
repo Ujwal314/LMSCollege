@@ -1,14 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staffs</title>
+    <link href="{% static 'styles/scroll.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             background-color: #212529;
             color: #fff;
+            margin: 10px;
         }
         .table {
             background-color: #343a40;
@@ -57,7 +60,7 @@
 </head>
 <body>
     <div>
-        <a href="register"><button type="button" class="btn">Add New Staff</button></a>
+        <a href="register"><button style="background-color: green;" type="button" class="btn">Add New Staff</button></a>
         <table class="table table-hover table-dark mt-3">
             <h3>Teachers</h3>
             <thead>

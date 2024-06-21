@@ -50,7 +50,7 @@
 </head>
 <body>
     <div class="login-container">
-        <form action="login" method="post">
+        <form action="login" method="post" target="_parent">
             {% csrf_token %}
 
             {% if alert_message %}

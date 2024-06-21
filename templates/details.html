@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Details</title>
+    <link href="{% static 'styles/scroll.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="{% static 'styles/scroll.css' %}" rel="stylesheet">
     <style>
         body {
             background-color: #212529;
             color: #fff;
+            margin:10px;
         }
         .table {
             background-color: #343a40;
@@ -72,7 +74,8 @@
             {% endif %}
             <div>
                 <h3>Leave Requests</h3>
-                <button type="submit" class="btn">Save changes</button>
+                <button style="background-color: red;" type="submit" name="reject_all" value="reject_all" class="btn btn-danger">Reject All</button>
+                <button style="background-color: green;" type="submit" name="accept_all" value="accept_all" class="btn btn-success">Accept All</button>
                 <table class="table table-hover table-dark mt-3">
                     <thead>
                         <tr>
@@ -101,11 +104,8 @@
                                 <td>{{ l.totaldays }}<input type="hidden" name="totaldays" value={{l.totaldays}}></td>
                                 <td>{{ l.status }}</td>
                                 <td>
-                                    <select name="status" class="form-select">
-                                        <option value="Pending" {% if l.status == "Pending" %}selected{% endif %}>Pending</option>
-                                        <option value="Approve" {% if l.status == "Approve" %}selected{% endif %}>Approve</option>
-                                        <option value="Reject" {% if l.status == "Reject" %}selected{% endif %}>Reject</option>
-                                    </select>
+                                    <button style="border-radius: 50%;border:none;padding:0;" type="submit" name="reject" value="{{ l.id }}" class="btn btn-danger"><img src="{% static 'images/reject.png' %}" style="width: 41px; height:41px;border-radius:50%;"></button>
+                                    <button style="border-radius: 50%;border:none;padding:0;" type="submit" name="accept" value="{{ l.id }}" class="btn btn-danger"><img src="{% static 'images/sign.png' %}" style="width: 40px; height:40px;border-radius:50%;"></button>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -126,7 +126,6 @@
             {% endif %}
             <div>
                 <h3>Leave Requests</h3>
-                <button type="submit" class="btn">Save Changes</button>
                 <table class="table table-hover table-dark mt-3">
                     <thead>
                         <tr>
@@ -137,7 +136,7 @@
                             <th scope="col">End Date</th>
                             <th scope="col">Total Days</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Keep/Delete</th>
+                            <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -184,10 +183,13 @@
                                 </td>
                                 <td>{{ l.totaldays }}</td>
                                 <td>{{ l.status }}</td>
-                                <td><select class="form-select" name="kd">
-                                    <option value="k">Keep</option>
-                                    <option value="d">Delete</option>
-                                </select></td>
+                                <td style="display: flex; justify-content: center; align-items: center;">
+                                    {% if l.status == "Pending" %}
+                                            <button style="border-radius: 50%;border:none;padding:0;" type="submit" name="delete" value="{{ l.id }}" class="btn btn-danger"><img src="{% static 'images/trash-bin.png' %}" style="width: 40px; height:40px;border-radius:50%;"></button>        
+                                    {% else %}
+                                        
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

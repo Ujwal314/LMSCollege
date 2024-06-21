@@ -21,14 +21,16 @@ class Teacher(models.Model):
     CL= models.FloatField(default=15)
     RH= models.FloatField(default=2)
     SL= models.FloatField(default=15)
+    VL= models.FloatField(default=30)
 
 class NonTeacher(models.Model):
     tid= models.ForeignKey(CustomUser ,on_delete=models.CASCADE)
     first_name= models.CharField(max_length=100)
     last_name= models.CharField(max_length=100)
-    EL= models.FloatField(default=5)
+    EL= models.FloatField(default=15)
     CL= models.FloatField(default=15)
     RH= models.FloatField(default=2)
+    VL= models.FloatField(default=30)
 
 class LeaveReq(models.Model):
     tid = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

@@ -14,5 +14,6 @@ urlpatterns = [
     path("details", views.details, name="details"),
     path("data", views.data, name="data"),
     path("refresh", views.refresh, name="refresh"),
-    path("staff", views.staff, name="staff")
+    path("staff", views.staff, name="staff"),
+    path("ex", views.ex, name="ex")
 ]

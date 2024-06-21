@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front</title>
+    <link href="{% static 'styles/see.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="background">
+        <div class="mainbody">
+            <div class="sidebar">
+                <nav>
+                <div class="acc">
+                    <img src="{% static 'images/user1.webp' %}"><br>
+                    <p>Userfirstnamelastname</p>
+                </div><br>
+                <div class="nav-items">
+                    <a href="#">Dashboard</a>
+                    <a href="#">Feature1</a>
+                    <a href="#">Feature2</a>
+                </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
